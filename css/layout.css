@@ -171,3 +171,8 @@ a:active{ -webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
 .footer{overflow: hidden;padding: 80px 0;background: #2c3339;color: #fff;}
 .footer .fl{margin-left: 96px;line-height: 25px;font-size: 12.5px;}
 .footer .fl img{margin-bottom: 20px;}
+.footer .fr{width: 611px;}
+.footer .fr ul{float: left;width: 134px;}
+.footer .fr li{float: none;line-height: 30px;}
+.footer .fr a{font-size: 14.5px;color: #fff;}
+.footer .fr a:hover{text-decoration: underline;}
