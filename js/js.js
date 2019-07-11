@@ -19,9 +19,6 @@ onloadcookie();
 
 //AJAX
 function couresByCategory(){
-    // var pageNo = document.getElementsByClassName('pagesindex').innerHTML;
-    console.log(document.getElementById('pagesindex').innerHTML);
-
     var pageNo = document.getElementById('pagesindex').innerHTML;
     var type = "10";
     //创建XMLHttpRequest对象
@@ -33,8 +30,38 @@ function couresByCategory(){
     xmlhttp.onreadystatechange=function(){
         if(xmlhttp.readyState == 4){
             if((xmlhttp.status >= 200 && xmlhttp.status <300) || xmlhttp.status == 304){
-                document.getElementById('tab-con').getElementsByTagName('ul').innerHTML = xmlhttp.responseText;
-                console.log(xmlhttp.responseText);
+                //转为json对象
+                var CategoryData =JSON.parse(xmlhttp.responseText);
+                //console.log(CategoryData);
+                var list = CategoryData.list;
+                //遍历输出
+                var str = "";
+                for ( i = 0; i < list.length; i++) {
+                    //如果价格为0显示免费
+                    var price =list[i].price;
+                    if (price == 0) {
+                        price ="免费";
+                    }else{price ="￥"+price;}
+
+                    str += '<li>'+
+                    '<img class="listpic" src="'+list[i].bigPhotoUrl+'" alt="">'+
+                    '<h5>'+list[i].name+'</h5>'+
+                    '<p class="liname">'+list[i].provider+'</p>'+
+                    '<p class="licount"><span>'+list[i].learnerCount+'</span></p>'+
+                    '<p class="liprice">'+price+'</p>'+
+                    '<div class="details">'+
+                    '<img class="listpic" src="'+list[i].bigPhotoUrl+'" alt="">'+
+                    '<div class="fl">'+
+                    '<h5>'+list[i].name+'</h5>'+
+                    '<p class="licount">'+list[i].learnerCount+'人在学</p>'+
+                    '<p class="liname">发布者：'+list[i].provider+'</p>'+
+                    '<p class="liname">分类： '+list[i].categoryName+'</p>'+
+                    '</div>'+
+                    '<p class="introduce">'+list[i].description+'</p>'+
+                    '</div>'+
+                    '</li>';
+                }
+                document.getElementById('tab-conul').innerHTML = str;
             }else{
                 alert("error:"+xmlhttp.status);
             }

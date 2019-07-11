@@ -120,13 +120,13 @@ a:active{ -webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
 .tabcon p{padding-left: 4px;}
 .tabcon .liname{color: #999;}
 .tabcon .licount{
-	height: 16px;width: 18px;
+	display: inline-block;height: 16px;
 	padding:0 3px 0 18px;margin:7px 0 7px 4px;
 	color: #999;
 	border: solid 1px #ddd; border-radius: 2px;
 	background: #fff url(../images/licount.png) 3px center no-repeat;
 }
-.tabcon .licount span{
+/* .tabcon .licount span{
 	display: inline-block;
 	line-height: 16px;
     -webkit-transform-origin-x: 0;
@@ -134,7 +134,7 @@ a:active{ -webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
     -webkit-transform: scale(0.5);
     transform: scale(0.5);
     font-size: 20px;
-}
+} */
 .tabcon .liprice{color:#ff3f00;font-weight: bold;}
 
 .details{display: none;
@@ -145,11 +145,12 @@ a:active{ -webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
 	box-shadow: 0 1px 3px 0 #a5a5a5;
 	z-index: 1;
 }
+.details>.fl{overflow: hidden;width: 225px;}
 .details .listpic{float: left;width: 223px;margin: 0 20px 0 11px;}
 .details h5{font-size: 18px;padding-left: 0;}
 .details .licount{float:left;width: 100%;border: 0;border-radius: 0;color: #666;}
 .details .liname{width: 100%;font-size: 12px;line-height: 20px;color: #666;}
-.details .introduce{box-sizing: border-box;position: absolute;bottom: 0;
+.details .introduce{box-sizing: border-box;overflow: hidden;position: absolute;bottom: 0;
 	width: 100%;height: 83px;padding: 16px 20px;
 	font-size: 14px;line-height: 24px;color: #666;
 	background: #f8f8f8;}
