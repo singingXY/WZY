@@ -27,7 +27,7 @@ function couresByCategory(){
     //创建XMLHttpRequest对象
     var xmlhttp=new XMLHttpRequest();
     
-    xmlhttp.open("GET","http://study.163.com/webDev/couresByCategory.htm?pageNo="+ pageNo +"&psize=20&type="+ type,true);
+    xmlhttp.open("GET","https://study.163.com/webDev/couresByCategory.htm?pageNo="+ pageNo +"&psize=20&type="+ type,true);
     xmlhttp.send();
     //注册回调函数
     xmlhttp.onreadystatechange=function(){
