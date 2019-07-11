@@ -57,7 +57,7 @@ function charImg(){
 	pics[index].style.opacity='1'; 
 	dots[index].className = "action";
 };
-slideImg();//调用slideImg()方法
+slideImg();
 
 
 
