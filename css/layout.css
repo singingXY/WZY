@@ -181,7 +181,7 @@ a:active{ -webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
 	width: 30px;height: 20px;
 	background: #9dd8b1 url(../images/prev.png) center no-repeat;}
 .pages .next{transform: rotate(180deg);margin-left: 9px;}
-.pages .pagesindex{color: #39a030;}
+.pages #pagesindex{color: #39a030;}
 .pages li:hover{background: #9dd8b1;color: #fff;}
 
 

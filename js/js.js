@@ -20,8 +20,9 @@ onloadcookie();
 //AJAX
 function couresByCategory(){
     // var pageNo = document.getElementsByClassName('pagesindex').innerHTML;
-    console.log(document.getElementsByClassName('pagesindex').innerHTML);
-    var pageNo = "2";
+    console.log(document.getElementById('pagesindex').innerHTML);
+
+    var pageNo = document.getElementById('pagesindex').innerHTML;
     var type = "10";
     //创建XMLHttpRequest对象
     var xmlhttp=new XMLHttpRequest();
@@ -30,12 +31,14 @@ function couresByCategory(){
     xmlhttp.send();
     //注册回调函数
     xmlhttp.onreadystatechange=function(){
-        if (xmlhttp.readyState==4 && xmlhttp.status==200){
-            document.getElementById('tab-con').getElementsByTagName('ul').innerHTML = xmlhttp.responseText;
-            console.log(xmlhttp.responseText);
-        }else{
-            alert("error:"+xmlhttp.status);
-        }
+        if(xmlhttp.readyState == 4){
+            if((xmlhttp.status >= 200 && xmlhttp.status <300) || xmlhttp.status == 304){
+                document.getElementById('tab-con').getElementsByTagName('ul').innerHTML = xmlhttp.responseText;
+                console.log(xmlhttp.responseText);
+            }else{
+                alert("error:"+xmlhttp.status);
+            }
+        }   
     }
 
 }
