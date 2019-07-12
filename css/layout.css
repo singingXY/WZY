@@ -98,9 +98,8 @@ a:active{ -webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
 #tab-nav{width: 400px;box-shadow: 0 1px 2px 0px #d4d3d3;}
 #tab-nav li{width: 200px;height: 50px;line-height: 50px;text-align: center;background: #fff;font-size: 20px;color: #666;}
 #tab-nav li.on{background: #39a030;color: #fff;}
-#tab-con .tabcon{display: none;}
-#tab-con .on{display: block;}
-#tab-con{padding: 30px 0 10px;}
+
+.tabcon{padding: 30px 0 10px;}
 .tabcon ul{overflow: inherit;width: 100%;}
 .tabcon li{box-sizing: border-box;position: relative;
 	padding: 1px;margin:0 20px 20px 0;
@@ -178,7 +177,7 @@ a:active{ -webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
 	cursor: pointer;}
 .pages ul{display: inline-block;}
 .pages .prev,.pages .next{
-	display:inline-block;
+	display:inline-block;cursor: pointer;
 	width: 30px;height: 20px;
 	background: #9dd8b1 url(../images/prev.png) center no-repeat;}
 .pages .next{transform: rotate(180deg);margin-left: 9px;}
