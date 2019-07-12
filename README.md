@@ -36,6 +36,7 @@ banner3：http://www.icourse163.org/
 
 ## 2前后端交互接口说明
 ### 2.1获取课程列表
+|-|-|
 |请求地址格式|	http://study.163.com /webDev/couresByCategory.htm|
 |请求方式|	get类型|
 |请求参数|	pageNo ; 
@@ -69,7 +70,7 @@ type ;|
  |
 
 ### 2.2右侧“最热排行”
-|请求地址格式|	http://study.163.com /webDev/hotcouresByCategory.htm|
+|请求地址格式|	http://study.163.com/webDev/hotcouresByCategory.htm|
 |请求方式|	get类型|
 |请求参数|	无|
 |请求参数说明|	无|
@@ -88,14 +89,14 @@ type ;|
  "description ":"适用人群：最适合即将实习、求职、就职的大学生，入职一、二三年的新人。别以为那些职场老人都知道！"//课程描述
 }]|
 ### 2.3导航关注
-|请求地址格式|	http://study.163.com /webDev/ attention.htm|
+|请求地址格式|	http://study.163.com/webDev/ attention.htm|
 |请求方式|	get类型|
 |请求参数|	无|
 |请求参数说明|	无|
 |返回|	1|
 |返回数据说明|	正确返回1后设置关注cookie（followSuc）|
 ### 2.4用户登录
-|请求地址格式|	http://study.163.com /webDev/login.htm|
+|请求地址格式|	http://study.163.com/webDev/login.htm|
 |请求方式|	get类型|
 |请求参数|	userName;
 password;|
