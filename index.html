@@ -11,7 +11,7 @@
 	<div class="top_msg" id="top_msg">
 		<div class="w">
 			网易云课堂微专业，帮助你掌握专业技能，令你求职或加薪多一份独特优势！  <a class="top_msg_a1" href="">立即查看></a>
-			<a href="javascript:void(0)" onclick="closeTop()" class="fr"><img src="images/关闭.png" alt="">不再提醒</a>
+			<a href="javascript:void(0)" onclick="closeTop()" class="fr"><img src="images/close.png" alt="">不再提醒</a>
 		</div>
 	</div>
 	<div class="w head">
@@ -111,17 +111,19 @@
 					<div class="lrc1 lrc1-sp">
 						<h3>机构介绍</h3>
 						<p>观看下面的视频来了解吧：</p>
-						<img src="images/video_07.jpg" alt="">
+						<img id="videoImg" src="images/video_07.jpg" alt="" >
 					</div>
 					<div class="lrc1 lrc1-hot">
 						<h3>最热排行</h3>
-						<ul id="hotcoures">
-							<li>
-								<img class="hotpic" src="http://img2.ph.126.net/a-aGOCUSei-5SQ76hLRcvA==/6631813234583039264.jpg" alt="">
-								<p class="litit">舞曲揭秘音乐揭秘揭秘</pc>
-								<p class="licount">21567</p>
-							</li>
-						</ul>
+						<div class="hotcoures">
+							<ul id="hotcoures">
+								<li>
+									<img class="hotpic" src="http://img2.ph.126.net/a-aGOCUSei-5SQ76hLRcvA==/6631813234583039264.jpg" alt="">
+									<p class="litit">舞曲揭秘音乐揭秘揭秘</pc>
+									<p class="licount">21567</p>
+								</li>
+							</ul>
+						</div>
 					</div>
 				</div>
 				<div class="clear"></div>
@@ -156,7 +158,19 @@
 			</div>
 		</div>
 	</div>
-	<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+	<div id="mask"></div>
+	<div id="loginWin">
+		<div id="loginClose"></div>
+		<p>登录网易云课堂</p>
+		<input type="text" id="userName" placeholder="帐号" >
+		<input type="password" name="" id="password" placeholder="密码">
+		<button id="login">登录</button>
+	</div>
+	<div id="videoWin">
+		<div id="videoClose"></div>
+		<p>请观看下面的视频</p>
+		<video src="http://mov.bn.netease.com/open-movie/nos/mp4/2014/12/30/SADQ86F5S_shd.mp4" width="889" height="500" controls="controls">您的浏览器版本太低，请尝试升级</video>
+	</div>
 <script src="js/js.js"></script>
 </body>
 </html>
