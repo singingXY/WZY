@@ -6,11 +6,11 @@ function closeTop(){
     setCookie("topmsg","yes");
 }
 //写入cookie
-function setCookie(cname,cvalue){
+function setCookie(cname, cvalue) {
     document.cookie = cname + "=" + cvalue + ";path=/";
 }
 //判断是否添加过cookie
-function onloadcookie(){
+function onloadcookie() {
     if(document.cookie.indexOf("topmsg=")==-1) {
         document.getElementById('top_msg').style.display='block';
     }
@@ -18,13 +18,36 @@ function onloadcookie(){
 
 onloadcookie();
 
+//登录
+var mask = document.getElementById('mask');
+var loginClose = document.getElementById('loginClose');
+function showLogin(){
+    mask.style.display ="block";
+    loginWin.style.display ="block";
+    
+    mask.onclick = closeLogin;
+    loginClose.onclick = closeLogin;
+}
+function closeLogin(){
+    mask.style.display='none';
+    loginWin.style.display='none';
+}
 
+function login(){
+    showLogin();
+    if(document.cookie.indexOf("loginSuc=")==-1){
+        showLogin();
+
+    }
+
+
+}
 
 //AJAX
 var pageNo = document.getElementById('pagesindex').innerHTML;
 
 var type=10;
-function couresByCategory(type,pageNo){
+function couresByCategory(type,pageNo) {
     
     //创建XMLHttpRequest对象
     var xmlhttp=new XMLHttpRequest();
@@ -62,23 +85,23 @@ function loadCourse(data){
             price ="免费";
         }else{price ="￥"+price;}
 
-        CourseHtml += '<li>'+
-        '<img class="listpic" src="'+list[i].bigPhotoUrl+'" alt="">'+
-        '<h5>'+list[i].name+'</h5>'+
-        '<p class="liname">'+list[i].provider+'</p>'+
-        '<p class="licount"><span>'+list[i].learnerCount+'</span></p>'+
-        '<p class="liprice">'+price+'</p>'+
-        '<div class="details">'+
-        '<img class="listpic" src="'+list[i].bigPhotoUrl+'" alt="">'+
-        '<div class="fl">'+
-        '<h5>'+list[i].name+'</h5>'+
-        '<p class="licount">'+list[i].learnerCount+'人在学</p>'+
-        '<p class="liname">发布者：'+list[i].provider+'</p>'+
-        '<p class="liname">分类： '+list[i].categoryName+'</p>'+
-        '</div>'+
-        '<p class="introduce">'+list[i].description+'</p>'+
-        '</div>'+
-        '</li>';
+        CourseHtml += '<li>'
+        + '<img class="listpic" src="'+list[i].bigPhotoUrl+'" alt="">'
+        + '<h5>'+list[i].name+'</h5>'
+        + '<p class="liname">'+list[i].provider+'</p>'
+        + '<p class="licount"><span>'+list[i].learnerCount+'</span></p>'
+        + '<p class="liprice">'+price+'</p>'
+        + '<div class="details">'
+        + '<img class="listpic" src="'+list[i].bigPhotoUrl+'" alt="">'
+        + '<div class="fl">'
+        + '<h5>'+list[i].name+'</h5>'
+        + '<p class="licount">'+list[i].learnerCount+'人在学</p>'
+        + '<p class="liname">发布者：'+list[i].provider+'</p>'
+        + '<p class="liname">分类： '+list[i].categoryName+'</p>'
+        + '</div>'
+        + '<p class="introduce">'+list[i].description+'</p>'
+        + '</div>'
+        + '</li>';
     }
     document.getElementById('tab-conul').innerHTML = CourseHtml;
 
@@ -160,11 +183,11 @@ function hotcoures(){
                 //遍历输出
                 var hotHtml = "";
                 for ( i = 0; i < hotData.length; i++) {
-                    hotHtml += '<li>'+
-                    '<img class="hotpic" src="'+hotData[i].smallPhotoUrl+'" alt="">'+
-                    '<p class="litit">'+hotData[i].name+'</pc>'+
-                    '<p class="licount">'+hotData[i].learnerCount+'</p>'+
-                    '</li>';
+                    hotHtml += '<li>'
+                    + '<img class="hotpic" src="'+hotData[i].smallPhotoUrl+'" alt="">'
+                    + '<p class="litit">'+hotData[i].name+'</pc>'
+                    + '<p class="licount">'+hotData[i].learnerCount+'</p>'
+                    + '</li>';
                 }
                 document.getElementById('hotcoures').innerHTML = hotHtml;
 
@@ -189,7 +212,6 @@ function hotcoures(){
 hotcoures();
 
 //视频弹窗
-var mask = document.getElementById('mask');
 var videoWin = document.getElementById('videoWin');
 var videoClose = document.getElementById('videoClose');
 document.getElementById('videoImg').onclick = function(){

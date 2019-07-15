@@ -14,10 +14,24 @@
 			<a href="javascript:void(0)" onclick="closeTop()" class="fr"><img src="images/close.png" alt="">不再提醒</a>
 		</div>
 	</div>
+	
+	<div id="mask"></div>
+	<div id="loginWin">
+		<div id="loginClose"></div>
+		<p>登录网易云课堂</p>
+		<input type="text" id="userName" placeholder="帐号" value="studyOnline">
+		<input type="password" name="" id="password" placeholder="密码" value="study.163.com">
+		<button id="login">登录</button>
+	</div>
+	<div id="videoWin">
+		<div id="videoClose"></div>
+		<p>请观看下面的视频</p>
+		<video src="http://mov.bn.netease.com/open-movie/nos/mp4/2014/12/30/SADQ86F5S_shd.mp4" width="889" height="500" controls="controls">您的浏览器版本太低，请尝试升级</video>
+	</div>
 	<div class="w head">
 		<div class="fl">
 			<img class="fl" src="images/EDU.png" alt="">
-			<a href="javascript:void(0)" class="follow"><img src="images/follow.png" alt=""> 关注</a>
+			<a href="javascript:void(0)" class="follow" onclick="login()"><img src="images/follow.png" alt=""> 关注</a>
 			<span class="fans">粉丝 45</span>
 		</div>
 		<div class="fr">
@@ -160,19 +174,7 @@
 			</div>
 		</div>
 	</div>
-	<div id="mask"></div>
-	<div id="loginWin">
-		<div id="loginClose"></div>
-		<p>登录网易云课堂</p>
-		<input type="text" id="userName" placeholder="帐号" >
-		<input type="password" name="" id="password" placeholder="密码">
-		<button id="login">登录</button>
-	</div>
-	<div id="videoWin">
-		<div id="videoClose"></div>
-		<p>请观看下面的视频</p>
-		<video src="http://mov.bn.netease.com/open-movie/nos/mp4/2014/12/30/SADQ86F5S_shd.mp4" width="889" height="500" controls="controls">您的浏览器版本太低，请尝试升级</video>
-	</div>
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
 <script src="js/js.js"></script>
 </body>
 </html>
