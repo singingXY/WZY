@@ -43,11 +43,15 @@ function login() {
 }
 document.getElementById('login').onclick = 
 function loadLogin() {
-    var userName = md5 (document.getElementById('userName').value);
-    var password = md5 (document.getElementById('password').value);
+    
+    var userName = document.getElementById('userName').value;
+    var password = document.getElementById('password').value;
     if(userName === '' || password === ''){
         alert("请填写用户名与密码");
-    }
+        return false;
+    }else{
+    var userName = md5 (userName);
+    var password = md5 (password);
     ajax(
         'https://study.163.com/webDev/login.htm?', 
         {
@@ -55,7 +59,6 @@ function loadLogin() {
             password:password
         },
         function(data) {
-            console.log(data);
             if(data == 1){
                 closeLogin();
                 setCookie("loginSuc",1);
@@ -65,10 +68,10 @@ function loadLogin() {
             }
         }
     );
-
+    }
 };
 
-//AJAX
+//AJAX方法
 function ajax(url,options,callback){
     var params = getParams(options);
     var request;
@@ -84,6 +87,7 @@ function ajax(url,options,callback){
         if(request.readyState === 4){
             if((request.status >= 200 && request.status <300) || request.status == 304){
                 if(callback){
+                    console.log(request.responseText);
                     callback(request.responseText);
                 }
             } else{ 
@@ -94,6 +98,7 @@ function ajax(url,options,callback){
 }
 //处理传入的参数
 function getParams(data){
+
     var arr = [];
         for (var param in data){
             arr.push(encodeURIComponent(param) + '=' +encodeURIComponent(data[param]));
@@ -106,78 +111,69 @@ var pageNo = document.getElementById('pagesindex').innerHTML;
 var type=10;
 function couresByCategory(type,pageNo) {
     
-    //创建XMLHttpRequest对象
-    var xmlhttp=new XMLHttpRequest();
-    
-    xmlhttp.open("GET","https://study.163.com/webDev/couresByCategory.htm?pageNo="+ pageNo +"&psize=20&type="+ type,true);
-    xmlhttp.send();
-    //注册回调函数
-    xmlhttp.onreadystatechange=function(){
-        if(xmlhttp.readyState == 4){
-            if((xmlhttp.status >= 200 && xmlhttp.status <300) || xmlhttp.status == 304){
-                loadCourse(xmlhttp.responseText);
-            }else{
-                alert("error:"+xmlhttp.status);
+    ajax(
+        'https://study.163.com/webDev/couresByCategory.htm?', 
+        {
+            pageNo:pageNo,
+            psize:20,
+            type:type
+        },
+        function loadCourse(data) {
+            //转为json对象
+            var CategoryData =JSON.parse(data);
+            //console.log(CategoryData);
+            var list = CategoryData.list;
+            
+            //遍历输出
+            var CourseHtml = "";
+            for ( i = 0; i < list.length; i++) {
+                //如果价格为0显示免费
+                var price =list[i].price;
+                if (price == 0) {
+                    price ="免费";
+                }else{price ="￥"+price;}
+
+                CourseHtml += '<li>'
+                + '<img class="listpic" src="'+list[i].bigPhotoUrl+'" alt="">'
+                + '<h5>'+list[i].name+'</h5>'
+                + '<p class="liname">'+list[i].provider+'</p>'
+                + '<p class="licount"><span>'+list[i].learnerCount+'</span></p>'
+                + '<p class="liprice">'+price+'</p>'
+                + '<div class="details">'
+                + '<img class="listpic" src="'+list[i].bigPhotoUrl+'" alt="">'
+                + '<div class="fl">'
+                + '<h5>'+list[i].name+'</h5>'
+                + '<p class="licount">'+list[i].learnerCount+'人在学</p>'
+                + '<p class="liname">发布者：'+list[i].provider+'</p>'
+                + '<p class="liname">分类： '+list[i].categoryName+'</p>'
+                + '</div>'
+                + '<p class="introduce">'+list[i].description+'</p>'
+                + '</div>'
+                + '</li>';
             }
-        }   
-    }
-    
+            document.getElementById('tab-conul').innerHTML = CourseHtml;
+
+            //分页
+            var pagesHtml='';
+            var count = 1;
+            console.log(CategoryData.pagination.pageIndex,CategoryData.totalPage,CategoryData.pagination.totlePageCount);
+            for ( i = 0; i < CategoryData.totalPage; i++) {
+
+                pagesHtml+='<li';
+                if(i == CategoryData.pagination.pageIndex-1){
+                    pagesHtml+=' id="pagesindex"';
+                }
+                pagesHtml+='>'+count+'</li>';
+                count++;
+
+            }
+            document.getElementById('pagesUl').innerHTML = pagesHtml;
+        }
+    );
 
 }
 couresByCategory(type,pageNo);
 
-
-function loadCourse(data){
-    //转为json对象
-    var CategoryData =JSON.parse(data);
-    //console.log(CategoryData);
-    var list = CategoryData.list;
-    
-    //遍历输出
-    var CourseHtml = "";
-    for ( i = 0; i < list.length; i++) {
-        //如果价格为0显示免费
-        var price =list[i].price;
-        if (price == 0) {
-            price ="免费";
-        }else{price ="￥"+price;}
-
-        CourseHtml += '<li>'
-        + '<img class="listpic" src="'+list[i].bigPhotoUrl+'" alt="">'
-        + '<h5>'+list[i].name+'</h5>'
-        + '<p class="liname">'+list[i].provider+'</p>'
-        + '<p class="licount"><span>'+list[i].learnerCount+'</span></p>'
-        + '<p class="liprice">'+price+'</p>'
-        + '<div class="details">'
-        + '<img class="listpic" src="'+list[i].bigPhotoUrl+'" alt="">'
-        + '<div class="fl">'
-        + '<h5>'+list[i].name+'</h5>'
-        + '<p class="licount">'+list[i].learnerCount+'人在学</p>'
-        + '<p class="liname">发布者：'+list[i].provider+'</p>'
-        + '<p class="liname">分类： '+list[i].categoryName+'</p>'
-        + '</div>'
-        + '<p class="introduce">'+list[i].description+'</p>'
-        + '</div>'
-        + '</li>';
-    }
-    document.getElementById('tab-conul').innerHTML = CourseHtml;
-
-    //分页
-    var pagesHtml='';
-    var count = 1;
-    console.log(CategoryData.pagination.pageIndex,CategoryData.totalPage,CategoryData.pagination.totlePageCount);
-    for ( i = 0; i < CategoryData.totalPage; i++) {
-
-        pagesHtml+='<li';
-        if(i == CategoryData.pagination.pageIndex-1){
-            pagesHtml+=' id="pagesindex"';
-        }
-        pagesHtml+='>'+count+'</li>';
-        count++;
-
-    }
-    document.getElementById('pagesUl').innerHTML = pagesHtml;
-}
 
 
 
@@ -225,46 +221,39 @@ for(var i=0;i<pagesli.length;i++){
 
 //右侧热门
 function hotcoures(){
-    //创建XMLHttpRequest对象
-    var xmlhttp=new XMLHttpRequest();
     
-    xmlhttp.open("GET","https://study.163.com/webDev/hotcouresByCategory.htm",true);
-    xmlhttp.send();
-    //注册回调函数
-    xmlhttp.onreadystatechange=function(){
-        if(xmlhttp.readyState == 4){
-            if((xmlhttp.status >= 200 && xmlhttp.status <300) || xmlhttp.status == 304){
-                //转为json对象
-                var hotData =JSON.parse(xmlhttp.responseText);
-                //console.log(hotData);
-                //遍历输出
-                var hotHtml = "";
-                for ( i = 0; i < hotData.length; i++) {
-                    hotHtml += '<li>'
-                    + '<img class="hotpic" src="'+hotData[i].smallPhotoUrl+'" alt="">'
-                    + '<p class="litit">'+hotData[i].name+'</pc>'
-                    + '<p class="licount">'+hotData[i].learnerCount+'</p>'
-                    + '</li>';
-                }
-                document.getElementById('hotcoures').innerHTML = hotHtml;
-
-                //滚动
-                var hotcouresUl = document.getElementById('hotcoures');
-                hotcouresUl.innerHTML+=hotcouresUl.innerHTML;
-                function hotMove(){
-                    if (hotcouresUl.scrollTop>=(hotcouresUl.scrollHeight/2)) {
-                        //当滚动的距离大于等于ul的高度时，把它的位置归到初始化
-                        hotcouresUl.scrollTop=0;
-                    }else{
-                        hotcouresUl.scrollTop+=70;
-                    }
-                }
-                setInterval(hotMove,5000);
-            }else{
-                alert("error:"+xmlhttp.status);
+    ajax(
+        'https://study.163.com/webDev/hotcouresByCategory.htm', 
+        null,
+        function(data) {
+            //转为json对象
+            var hotData =JSON.parse(data);
+            //console.log(hotData);
+            //遍历输出
+            var hotHtml = "";
+            for ( i = 0; i < hotData.length; i++) {
+                hotHtml += '<li>'
+                + '<img class="hotpic" src="'+hotData[i].smallPhotoUrl+'" alt="">'
+                + '<p class="litit">'+hotData[i].name+'</pc>'
+                + '<p class="licount">'+hotData[i].learnerCount+'</p>'
+                + '</li>';
             }
-        }   
-    }
+            document.getElementById('hotcoures').innerHTML = hotHtml;
+
+            //滚动
+            var hotcouresUl = document.getElementById('hotcoures');
+            hotcouresUl.innerHTML+=hotcouresUl.innerHTML;
+            function hotMove(){
+                if (hotcouresUl.scrollTop>=(hotcouresUl.scrollHeight/2)) {
+                    //当滚动的距离大于等于ul的高度时，把它的位置归到初始化
+                    hotcouresUl.scrollTop=0;
+                }else{
+                    hotcouresUl.scrollTop+=70;
+                }
+            }
+            setInterval(hotMove,5000);
+        }
+    );
 }
 hotcoures();
 
