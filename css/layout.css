@@ -27,6 +27,33 @@ a:active{ -webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
 	color: #fff;
 }
 .head .follow:hover{background: #2fb556;}
+
+.head .follow2{
+	display: none;
+	/* display: inline-block; */
+	margin: 0 14px 0 30px;
+	width: 104px;height: 20px;
+	border: solid 1px #efefef;
+	border-radius: 2px;
+	line-height: 20px;
+	text-align: center;
+	background: #f8f8f8;
+	color: #333;
+}
+.head .follow2:hover{background: #fff;}
+.head .follow2 span{
+    float: right;
+	display:block;
+	margin: 5px 0;
+	height: 10px;width: 38px;
+    line-height: 10px;
+	border-left: 1px solid #ccc;
+	color: #999;
+}
+.head .follow2:hover span{
+	color: #21a557;text-decoration: underline;
+}
+
 .head .fans{color: #666;}
 .head .fr a{
 	margin: 0 19px;

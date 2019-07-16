@@ -39,11 +39,12 @@ function login() {
     //若cookie没有loginSuc则显示登录窗
     if(document.cookie.indexOf("loginSuc=")==-1){
         showLogin();
+    }else{
+        follow();
     }
 }
 document.getElementById('login').onclick = 
 function loadLogin() {
-    
     var userName = document.getElementById('userName').value;
     var password = document.getElementById('password').value;
     if(userName === '' || password === ''){
@@ -70,6 +71,26 @@ function loadLogin() {
     );
     }
 };
+function follow() {
+    ajax(
+        'https://study.163.com/webDev/attention.htm', 
+        null,
+        function(data) {
+            if(data == 1){
+                setCookie("followSuc",1);
+                document.getElementsByClassName("follow")[0].style.display = "none";
+                document.getElementsByClassName("follow2")[0].style.display = "inline-block";
+            }
+        }
+    );
+}
+function unfollow(){
+    document.getElementsByClassName("follow")[0].style.display = "inline-block";
+    document.getElementsByClassName("follow2")[0].style.display = "none";
+    //setCookie("followSuc",-1);
+    document.cookie = "followSuc=; expires=-1" ;
+    console.log(document.cookie);
+}
 
 //AJAX方法
 function ajax(url,options,callback){
@@ -87,7 +108,7 @@ function ajax(url,options,callback){
         if(request.readyState === 4){
             if((request.status >= 200 && request.status <300) || request.status == 304){
                 if(callback){
-                    console.log(request.responseText);
+                    //console.log(request.responseText);
                     callback(request.responseText);
                 }
             } else{ 
