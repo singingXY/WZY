@@ -5,47 +5,104 @@ function closeTop(){
     document.getElementById('top_msg').style.display='none';
     setCookie("topmsg","yes");
 }
-//写入cookie
-function setCookie(cname, cvalue) {
-    document.cookie = cname + "=" + cvalue + ";path=/";
-}
 //判断是否添加过cookie
-function onloadcookie() {
+function loadingCookie() {
     if(document.cookie.indexOf("topmsg=")==-1) {
         document.getElementById('top_msg').style.display='block';
     }
 }
+loadingCookie();
+//写入cookie
+function setCookie(cname, cvalue) {
+    document.cookie = cname + "=" + cvalue ;
+}
 
-onloadcookie();
 
-//登录
+//登录部分
 var mask = document.getElementById('mask');
 var loginClose = document.getElementById('loginClose');
-function showLogin(){
+
+function showLogin() {
     mask.style.display ="block";
     loginWin.style.display ="block";
     
     mask.onclick = closeLogin;
     loginClose.onclick = closeLogin;
 }
-function closeLogin(){
+
+function closeLogin() {
     mask.style.display='none';
     loginWin.style.display='none';
 }
 
-function login(){
-    showLogin();
+function login() {
+    //若cookie没有loginSuc则显示登录窗
     if(document.cookie.indexOf("loginSuc=")==-1){
         showLogin();
-
     }
-
-
 }
+document.getElementById('login').onclick = 
+function loadLogin() {
+    var userName = md5 (document.getElementById('userName').value);
+    var password = md5 (document.getElementById('password').value);
+    if(userName === '' || password === ''){
+        alert("请填写用户名与密码");
+    }
+    ajax(
+        'https://study.163.com/webDev/login.htm?', 
+        {
+            userName:userName,
+            password:password
+        },
+        function(data) {
+            console.log(data);
+            if(data == 1){
+                closeLogin();
+                setCookie("loginSuc",1);
+                follow();
+            }else{
+                alert("登录失败，用户名或密码错误。");
+            }
+        }
+    );
+
+};
 
 //AJAX
-var pageNo = document.getElementById('pagesindex').innerHTML;
+function ajax(url,options,callback){
+    var params = getParams(options);
+    var request;
+    if (window.XMLHttpRequest){
+        request = new XMLHttpRequest();
+    }else{
+        /* IE标准 */ 
+        request = new ActiveXObject('Microsoft.XMLHTTP');
+    }
+    request.open("GET", url+params, true);
+    request.send();
+    request.onreadystatechange = function() {
+        if(request.readyState === 4){
+            if((request.status >= 200 && request.status <300) || request.status == 304){
+                if(callback){
+                    callback(request.responseText);
+                }
+            } else{ 
+                alert("error:"+request.status);
+            }
+        }
+    }
+}
+//处理传入的参数
+function getParams(data){
+    var arr = [];
+        for (var param in data){
+            arr.push(encodeURIComponent(param) + '=' +encodeURIComponent(data[param]));
+        }
+        //console.log(arr); 
+        return arr.join('&');
+}
 
+var pageNo = document.getElementById('pagesindex').innerHTML;
 var type=10;
 function couresByCategory(type,pageNo) {
     
