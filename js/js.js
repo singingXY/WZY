@@ -11,7 +11,7 @@ function loadingCookie() {
         document.getElementById('top_msg').style.display='block';
     }
     //关注状态
-    if(document.cookie.indexOf("followSuc=")==1) {
+    if(document.cookie.indexOf("followSuc=")！==-1) {
     document.getElementsByClassName("follow")[0].style.display = "none";
     document.getElementsByClassName("follow2")[0].style.display = "inline-block";
     }
