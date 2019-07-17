@@ -130,14 +130,22 @@ function getParams(data){
 
 var pageNo = document.getElementById('pagesindex').innerHTML;
 var type=10;
+var psize = 20;
+var bodyWidth = document.body.clientWidth;
+if(bodyWidth<1205){
+    psize = 15;
+}else{
+    psize = 20;
+}
+couresByCategory(type,pageNo);
 function couresByCategory(type,pageNo) {
     
     ajax(
         'https://study.163.com/webDev/couresByCategory.htm?', 
         {
-            pageNo:pageNo,
-            psize:20,
-            type:type
+            pageNo: pageNo,
+            psize: psize,
+            type:  type
         },
         function loadCourse(data) {
             //转为json对象
@@ -193,7 +201,6 @@ function couresByCategory(type,pageNo) {
     );
 
 }
-couresByCategory(type,pageNo);
 
 
 
@@ -225,7 +232,8 @@ pages.getElementsByClassName('prev')[0].onclick =function(){
     }
 }
 pages.getElementsByClassName('next')[0].onclick =function(){
-    pageNo = pageNo+1;
+    //这里注意需要把字符串转为数字
+    pageNo = pageNo*1+1;
     couresByCategory(type,pageNo);
 }
 
@@ -354,3 +362,4 @@ function byid(id){
         dots[bindex].className = "action";
     };
     slideImg();
+
