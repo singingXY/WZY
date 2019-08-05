@@ -181,12 +181,11 @@ function couresByCategory(type,pageNo) {
                 + '<p class="liname">发布者：'+list[i].provider+'</p>'
                 + '<p class="liname">分类： '+list[i].categoryName+'</p>'
                 + '</div>'
-                + '<p class="introduce">'+list[i].description+'</p>'
+                + '<p class="introduce">'+limitWords(list[i].description)+'</p>'
                 + '</div>'
                 + '</li>';
             }
             document.getElementById('tab-conul').innerHTML = CourseHtml;
-
             //分页
             var pagesHtml='';
             var count = 1;
@@ -206,7 +205,12 @@ function couresByCategory(type,pageNo) {
     );
 
 }
-
+//限制课程说明字数
+function limitWords(txt){
+    var str = txt;
+    str = str.substr(0,55) + '...';
+    return str;
+}
 
 
 
